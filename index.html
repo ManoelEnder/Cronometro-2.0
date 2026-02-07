@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronômetro</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #0f0f0f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+#time {
+  font-size: 4rem;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+button {
+  background: #1f1f1f;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #333;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div id="time">00:00:00</div>
+  <div class="buttons">
+    <button onclick="start()">Iniciar</button>
+    <button onclick="pause()">Pausar</button>
+    <button onclick="reset()">Zerar</button>
+  </div>
+</div>
+
+<script>
+let seconds = 0
+let interval = null
+
+function updateTime() {
+  seconds++
+  const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0')
+  const min = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0')
+  const sec = String(seconds % 60).padStart(2, '0')
+  document.getElementById('time').innerText = `${hrs}:${min}:${sec}`
+}
+
+function start() {
+  if (!interval) {
+    interval = setInterval(updateTime, 1000)
+  }
+}
+
+function pause() {
+  clearInterval(interval)
+  interval = null
+}
+
+function reset() {
+  pause()
+  seconds = 0
+  document.getElementById('time').innerText = '00:00:00'
+}
+</script>
+
+</body>
+</html>
