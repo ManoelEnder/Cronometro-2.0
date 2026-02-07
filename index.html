@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head> <meta name="robots" content="noindex, nofollow">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cronômetro</title>
+<title>Cronômetro com Foco</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
 <style>
 * {
@@ -12,7 +12,6 @@
   box-sizing: border-box;
   font-family: 'JetBrains Mono', monospace;
 }
-
 body {
   background: #0b0b0b;
   color: #ffffff;
@@ -21,23 +20,19 @@ body {
   justify-content: center;
   height: 100vh;
 }
-
 .container {
   text-align: center;
 }
-
 .time-wrapper {
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
-
 #time {
   font-size: 6.5rem;
   font-weight: 300;
   letter-spacing: 4px;
 }
-
 #millis {
   font-size: 2.5rem;
   font-weight: 300;
@@ -45,14 +40,12 @@ body {
   width: 3.5ch;
   text-align: left;
 }
-
 .buttons {
   display: flex;
   gap: 16px;
   justify-content: center;
   margin-top: 40px;
 }
-
 button {
   background: #1a1a1a;
   color: #fff;
@@ -63,9 +56,11 @@ button {
   cursor: pointer;
   transition: 0.2s;
 }
-
 button:hover {
   background: #2a2a2a;
+}
+iframe {
+  display: none;
 }
 </style>
 </head>
@@ -81,8 +76,14 @@ button:hover {
     <button onclick="start()">Iniciar</button>
     <button onclick="pause()">Pausar</button>
     <button onclick="reset()">Zerar</button>
+    <button onclick="toggleFocus()">Modo Foco</button>
   </div>
 </div>
+
+<iframe id="ytplayer"
+  src="https://www.youtube.com/embed/VOwgKS8q7Mg?enablejsapi=1&loop=1&playlist=VOwgKS8q7Mg"
+  frameborder="0">
+</iframe>
 
 <script>
 let startTime = 0
@@ -92,7 +93,6 @@ let interval = null
 function updateTime() {
   const now = Date.now()
   const diff = now - startTime + elapsed
-
   const hrs = String(Math.floor(diff / 3600000)).padStart(2, '0')
   const min = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0')
   const sec = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0')
@@ -123,6 +123,17 @@ function reset() {
   elapsed = 0
   document.getElementById('time').innerText = '00:00:00'
   document.getElementById('millis').innerText = '.000'
+}
+
+let focusOn = false
+function toggleFocus() {
+  const player = document.getElementById('ytplayer')
+  focusOn = !focusOn
+  if (focusOn) {
+    player.src += "&autoplay=1"
+  } else {
+    player.src = player.src.replace("&autoplay=1", "")
+  }
 }
 </script>
 
