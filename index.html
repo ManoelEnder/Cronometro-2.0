@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cronômetro</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 body {
@@ -26,23 +26,31 @@ body {
   text-align: center;
 }
 
-#time {
-  font-size: 6rem;
-  font-weight: 300;
-  letter-spacing: 3px;
-  margin-bottom: 40px;
+.time-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.millis {
-  font-size: 2rem;
+#time {
+  font-size: 6.5rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+#millis {
+  font-size: 2.5rem;
   font-weight: 300;
   opacity: 0.6;
+  width: 3.5ch;
+  text-align: left;
 }
 
 .buttons {
   display: flex;
   gap: 16px;
   justify-content: center;
+  margin-top: 40px;
 }
 
 button {
@@ -64,9 +72,11 @@ button:hover {
 <body>
 
 <div class="container">
-  <div>
-    <span id="time">00:00:00</span><span class="millis" id="millis">.000</span>
+  <div class="time-wrapper">
+    <span id="time">00:00:00</span>
+    <span id="millis">.000</span>
   </div>
+
   <div class="buttons">
     <button onclick="start()">Iniciar</button>
     <button onclick="pause()">Pausar</button>
